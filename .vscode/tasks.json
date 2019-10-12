@@ -9,6 +9,7 @@
 				"-fdiagnostics-color=always",
 				"-g",
 				"${file}",
+				"${workspaceFolder}/vect.c",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],
