@@ -24,3 +24,17 @@ void** init_vect(size_t n, ...) {
 	return vector;
 }
 
+void free_vect(void** vector, size_t size, void (*free_item)(void*)) {
+	if (vector == NULL) {
+		return;
+	}
+
+	if (free_item != NULL) {
+		for(int i = 0; i < size; i++) {
+			if (vector[i] != NULL) free_item(vector[i]);
+		}
+	}
+
+	free(vector);
+}
+

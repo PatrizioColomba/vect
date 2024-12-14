@@ -14,10 +14,14 @@ int main(int argc, char** argv) {
         return -1;
     }
 
+    int** p = vector;
     for (int i = 0; i < size; i++) {
-        printf("%d = %d\n", i, **vector);
-        *vector++;
+        printf("%d = %d\n", i, **p);
+        *p++;
     }
+
+    free_vect((void**)vector, size, NULL);
+    p = NULL;
 
     return 0;
 }
