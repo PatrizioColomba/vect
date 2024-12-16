@@ -4,7 +4,8 @@
 #define __STRVECT_H__
 
 void** init_vect(size_t n, ...);
-void free_vect(void** vector, size_t size, void (*free_item)(void *));
+void free_vect(void** vector, const size_t size, const void (*free_item)(void *));
+void** append_vect(void** vector, const size_t vector_size, void** elements, const size_t elements_size, size_t* new_size);
 
 #endif
 

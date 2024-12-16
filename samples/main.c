@@ -15,13 +15,25 @@ int main(int argc, char** argv) {
         return -1;
     }
 
+    printf("First vector (size %zu)\n", size);
     int** p = vector;
     for (int i = 0; i < size; i++) {
         printf("%d = %d\n", i, **p);
         *p++;
     }
 
+    size_t* new_size = malloc(sizeof(size_t*));
+
+    int** new_vector = (int**)append_vect((void**)vector, size, (void**)vector, size, new_size);    
     free_vect((void**)vector, size, NULL);
+
+    printf("Second vector (size %zu)\n", *new_size);
+    p = new_vector;
+    for (int i = 0; i < *new_size; i++) {
+        printf("%d = %d\n", i, **p);
+        *p++;
+    }
+
     p = NULL;
 
     return 0;
