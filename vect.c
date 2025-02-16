@@ -59,7 +59,7 @@ void **append_vect(void **vector, const size_t size, void **elements,
     return NULL;
   }
 
-  if (size < 0 || elements < 0) {
+  if (size < 0 || elements_size < 0) {
     printf("size %zu and elements_size %zu must be greater or equal than 0!\n");
     return NULL;
   }
