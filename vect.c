@@ -4,10 +4,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * @brief Initializes a vector with a given number of elements.
+ *
+ * @param n The number of elements to initialize the vector with.
+ * @param ... The elements to initialize the vector with.
+ * @return A pointer to the initialized vector, or NULL if an error occurred.
+ */
 Vector *init_vect(size_t n, ...)
 {
     if (n < 0) {
-        printf("n must be grater than zero!\n");
+        printf("n must be greater than zero!\n");
         return NULL;
     }
 
@@ -30,6 +37,12 @@ Vector *init_vect(size_t n, ...)
     return vect;
 }
 
+/**
+ * @brief Frees the memory allocated for a vector.
+ *
+ * @param vector The vector to free.
+ * @param free_item A function pointer to free individual items in the vector.
+ */
 void free_vect(Vector *vector, const void (*free_item)(void *))
 {
     if (vector == NULL) {
@@ -44,10 +57,17 @@ void free_vect(Vector *vector, const void (*free_item)(void *))
         }
     }
 
-    free(vector->data);  // Libera i dati del vettore
-    free(vector);        // Libera la struttura del vettore
+    free(vector->data);
+    free(vector);
 }
 
+/**
+ * @brief Appends two vectors into a new vector.
+ *
+ * @param vector1 The first vector.
+ * @param vector2 The second vector.
+ * @return A pointer to the new vector containing elements from both input vectors, or NULL if an error occurred.
+ */
 Vector *append_vect(Vector *vector1, Vector *vector2)
 {
     if (vector1 == NULL) {
