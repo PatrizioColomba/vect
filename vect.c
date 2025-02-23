@@ -13,17 +13,17 @@
  */
 Vector *init_vect(size_t n, ...)
 {
-    if (n < 0) {
-        printf("n must be greater than zero!\n");
+    void **data = malloc(n * sizeof(void *));
+    if (data == NULL) {
+        printf("failed to allocate memory for data!\n");
         return NULL;
     }
 
-    void **data = malloc(n * sizeof(void **));
     va_list args;
     va_start(args, n);
 
     void **p = data;
-    for (int i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
         *p = va_arg(args, void *);
         p++;
     }
@@ -31,6 +31,12 @@ Vector *init_vect(size_t n, ...)
     va_end(args);
 
     Vector *vect = malloc(sizeof(Vector));
+    if (vect == NULL) {
+        printf("failed to allocate memory for vector!\n");
+        free(data);
+        return NULL;
+    }
+
     vect->data = data;
     vect->size = n;
 
@@ -80,16 +86,6 @@ Vector *append_vect(Vector *vector1, Vector *vector2)
         return NULL;
     }
 
-    if (vector1->size <= 0) {
-        printf("vector1 size is zero or negative!\n");
-        return NULL;
-    }
-
-    if (vector2->size <= 0) {
-        printf("vector2 size is zero or negative!\n");
-        return NULL;
-    }
-
     size_t new_size = vector1->size + vector2->size;
 
     Vector *result_vector = malloc(sizeof(Vector));
@@ -116,4 +112,66 @@ Vector *append_vect(Vector *vector1, Vector *vector2)
     }
 
     return result_vector;
+}
+
+/**
+ * @brief Adds an element into a vector.
+ *
+ * @param vector The vector to insert the element into.
+ * @param element The element to insert.
+ * @return A pointer to the new vector with the element inserted, or NULL if an error occurred.
+ */
+Vector *add_vect(Vector *vector, void *element)
+{
+    if (vector == NULL) {
+        printf("parameter vector is null!\n");
+        return NULL;
+    }
+
+    size_t new_size = vector->size + 1;
+
+    Vector *result_vector = malloc(sizeof(Vector));
+    if (result_vector == NULL) {
+        printf("failed to allocate memory for result_vector!\n");
+        return NULL;
+    }
+
+    result_vector->data = malloc(new_size * sizeof(void *));
+    if (result_vector->data == NULL) {
+        printf("failed to allocate memory for result_vector data!\n");
+        free(result_vector);
+        return NULL;
+    }
+
+    result_vector->size = new_size;
+
+    for (size_t i = 0; i < vector->size; i++) {
+        result_vector->data[i] = vector->data[i];
+    }
+
+    result_vector->data[vector->size] = element;
+
+    return result_vector;
+}
+
+/**
+ * @brief Gets an element from a vector.
+ *
+ * @param vector The vector to get the element from.
+ * @param index The index of the element to get.
+ * @return A pointer to the element at the given index, or NULL if an error occurred.
+ */
+void *get_vect(Vector *vector, size_t index)
+{
+    if (vector == NULL) {
+        printf("parameter vector is null!\n");
+        return NULL;
+    }
+
+    if (index >= vector->size) {
+        printf("index is out of bounds!\n");
+        return NULL;
+    }
+
+    return vector->data[index];
 }

@@ -16,20 +16,28 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    printf("First vector (size %zu)\n", vector->size);
-    for (int i = 0; i < vector->size; i++) {
-        printf("%d = %d\n", i, *(int *)vector->data[i]);
-    }
+    printf("First vector\n");
+    PRINT_VECT_INT(vector);
 
     Vector *new_vector = append_vect(vector, vector);
     free_vect(vector, NULL);
 
-    printf("Second vector (size %zu)\n", new_vector->size);
-    for (int i = 0; i < new_vector->size; i++) {
-        printf("%d = %d\n", i, *(int *)new_vector->data[i]);
+    printf("Second vector\n");
+    PRINT_VECT_INT(new_vector);
+
+    int n3 = 42;
+    Vector *expanded_vector = add_vect(new_vector, (void *)&n3);
+
+    PRINT_VECT_INT(expanded_vector);
+
+    int *an_element = (int *)get_vect(expanded_vector, 4);
+    if (an_element != NULL) {
+        printf("Element at index 4: %d\n", *an_element);
+    } else {
+        printf("Failed to get element at index 4\n");
     }
 
-    free_vect(new_vector, NULL);
+    free_vect(expanded_vector, NULL);
 
     return 0;
 }
