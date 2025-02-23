@@ -4,17 +4,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-void **init_vect(size_t n, ...) {
+Vector *init_vect(size_t n, ...) {
   if (n < 0) {
     printf("n must be grater than zero!\n");
     return NULL;
   }
 
-  void **vector = malloc(n * sizeof(void **));
+  void **data = malloc(n * sizeof(void **));
   va_list args;
   va_start(args, n);
 
-  void **p = vector;
+  void **p = data;
   for (int i = 0; i < n; i++) {
     *p = va_arg(args, void *);
     p++;
@@ -22,70 +22,54 @@ void **init_vect(size_t n, ...) {
 
   va_end(args);
 
-  return vector;
+  Vector *vect = malloc(sizeof(Vector));
+  vect->data = data;
+  vect->size = n;
+  
+  return vect;
 }
 
-void free_vect(void **vector, const size_t size,
-               const void (*free_item)(void *)) {
-  if (vector == NULL) {
-    printf("parameter vector is null!\n");
-    return;
-  }
-
-  if (free_item != NULL) {
-    for (int i = 0; i < size; i++) {
-      if (vector[i] != NULL)
-        free_item(vector[i]);
+void free_vect(Vector *vector, const void (*free_item)(void *)) {
+    if (vector == NULL) {
+        printf("parameter vector is null!\n");
+        return;
     }
-  }
 
-  free(vector);
+    if (free_item != NULL) {
+        for (size_t i = 0; i < vector->size; i++) {
+            if (vector->data[i] != NULL)
+                free_item(vector->data[i]);
+        }
+    }
+
+    free(vector->data); // Libera i dati del vettore
+    free(vector); // Libera la struttura del vettore
 }
 
-void **append_vect(void **vector, const size_t size, void **elements,
-                   const size_t elements_size, size_t *new_size) {
-  if (vector == NULL) {
-    printf("parameter vector is null!\n");
-    return NULL;
-  }
+Vector *append_vect(Vector *vector1, Vector *vector2) {
+    if (vector1 == NULL) {
+        printf("parameter vector1 is null!\n");
+        return NULL;
+    }
 
-  if (elements == NULL) {
-    printf("parameter elements is null!\n");
-    return NULL;
-  }
+    if (vector2 == NULL) {
+        printf("parameter vector2 is null!\n");
+        return NULL;
+    }
 
-  if (new_size == NULL) {
-    printf("parameter new_size if null!\n");
-    return NULL;
-  }
+    size_t new_size = vector1->size + vector2->size;
 
-  if (size < 0 || elements_size < 0) {
-    printf("size %zu and elements_size %zu must be greater or equal than 0!\n");
-    return NULL;
-  }
+    Vector *result_vector = malloc(sizeof(Vector));
+    result_vector->data = malloc(new_size * sizeof(void *));
+    result_vector->size = new_size;
 
-  if (elements_size == 0) {
-    *new_size = size;
-    return vector;
-  }
+    for (size_t i = 0; i < vector1->size; i++) {
+        result_vector->data[i] = vector1->data[i];
+    }
 
-  if (size == 0) {
-    *new_size = elements_size;
-    return elements;
-  }
+    for (size_t i = 0; i < vector2->size; i++) {
+        result_vector->data[vector1->size + i] = vector2->data[i];
+    }
 
-  void **result_vector =
-      (void **)malloc((size * elements_size) * sizeof(void *));
-
-  for (int i = 0; i < size; i++) {
-    result_vector[i] = vector[i];
-  }
-
-  for (int i = 0; i < elements_size; i++) {
-    result_vector[size + i] = elements[i];
-  }
-
-  *new_size = size * elements_size;
-
-  return result_vector;
+    return result_vector;
 }
