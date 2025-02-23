@@ -57,10 +57,31 @@ Vector *append_vect(Vector *vector1, Vector *vector2) {
         return NULL;
     }
 
+    if (vector1->size <= 0) {
+        printf("vector1 size is zero or negative!\n");
+        return NULL;
+    }
+
+    if (vector2->size <= 0) {
+        printf("vector2 size is zero or negative!\n");
+        return NULL;
+    }
+
     size_t new_size = vector1->size + vector2->size;
 
     Vector *result_vector = malloc(sizeof(Vector));
+    if (result_vector == NULL) {
+        printf("failed to allocate memory for result_vector!\n");
+        return NULL;
+    }
+
     result_vector->data = malloc(new_size * sizeof(void *));
+    if (result_vector->data == NULL) {
+        printf("failed to allocate memory for result_vector data!\n");
+        free(result_vector);
+        return NULL;
+    }
+
     result_vector->size = new_size;
 
     for (size_t i = 0; i < vector1->size; i++) {
