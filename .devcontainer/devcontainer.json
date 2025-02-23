@@ -8,6 +8,7 @@
     "customizations": {
         "vscode": {
             "extensions": [
+                "ms-vscode.cpptools",
                 "ms-vscode.cpptools-extension-pack" // Aggiungi questa riga per installare C/C++ Extension Pack
             ]
         }
