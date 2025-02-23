@@ -47,7 +47,9 @@ int main(int argc, char **argv)
     printf("Enter the number to find: ");
     scanf("%d", &target);
 
-    int *found_element = (int *)find_first_vect(expanded_vector, (bool (*)(void *, void *))is_equal_to_target, (void *)&target);
+    int *found_element = (int *)find_first_vect(
+        expanded_vector, (bool (*)(void *, void *))is_equal_to_target,
+        (void *)&target);
     if (found_element != NULL) {
         printf("Found element: %d\n", *found_element);
     } else {

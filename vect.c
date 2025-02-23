@@ -73,7 +73,8 @@ void free_vect(Vector *vector, const void (*free_item)(void *))
  *
  * @param vector1 The first vector.
  * @param vector2 The second vector.
- * @return A pointer to the new vector containing elements from both input vectors, or NULL if an error occurred.
+ * @return A pointer to the new vector containing elements from both input
+ * vectors, or NULL if an error occurred.
  */
 Vector *append_vect(Vector *vector1, Vector *vector2)
 {
@@ -120,7 +121,8 @@ Vector *append_vect(Vector *vector1, Vector *vector2)
  *
  * @param vector The vector to insert the element into.
  * @param element The element to insert.
- * @return A pointer to the new vector with the element inserted, or NULL if an error occurred.
+ * @return A pointer to the new vector with the element inserted, or NULL if an
+ * error occurred.
  */
 Vector *add_vect(Vector *vector, void *element)
 {
@@ -160,7 +162,8 @@ Vector *add_vect(Vector *vector, void *element)
  *
  * @param vector The vector to get the element from.
  * @param index The index of the element to get.
- * @return A pointer to the element at the given index, or NULL if an error occurred.
+ * @return A pointer to the element at the given index, or NULL if an error
+ * occurred.
  */
 void *get_vect(Vector *vector, size_t index)
 {
@@ -178,13 +181,16 @@ void *get_vect(Vector *vector, size_t index)
 }
 
 /**
- * @brief Finds the first element in the vector that satisfies the predicate function.
+ * @brief Finds the first element in the vector that satisfies the predicate
+ * function.
  *
  * @param vector The vector to search.
  * @param predicate The predicate function to apply to each element.
- * @return A pointer to the first element that satisfies the predicate, or NULL if no such element is found.
+ * @return A pointer to the first element that satisfies the predicate, or NULL
+ * if no such element is found.
  */
-void *find_first_vect(Vector *vector, bool (*predicate)(void *, void*), void *target)
+void *find_first_vect(Vector *vector, bool (*predicate)(void *, void *),
+                      void *target)
 {
     if (vector == NULL) {
         printf("parameter vector is null!\n");
@@ -204,4 +210,3 @@ void *find_first_vect(Vector *vector, bool (*predicate)(void *, void*), void *ta
 
     return NULL;
 }
-
