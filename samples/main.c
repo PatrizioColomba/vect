@@ -8,33 +8,27 @@ int main(int argc, char** argv) {
     scanf("%zu", &size);
     int n1 = 4;
     int n2 = 13;
-    int **vector = (int**)init_vect(size, (void*)&n1, (void*)&n2);
+    Vector *vector = init_vect(size, (void*)&n1, (void*)&n2);
 
     if (vector == NULL) {
         printf("vector is null!\n");
         return -1;
     }
 
-    printf("First vector (size %zu)\n", size);
-    int** p = vector;
-    for (int i = 0; i < size; i++) {
-        printf("%d = %d\n", i, **p);
-        *p++;
+    printf("First vector (size %zu)\n", vector->size);
+    for (int i = 0; i < vector->size; i++) {
+        printf("%d = %d\n", i, *(int*)vector->data[i]);
     }
 
-    size_t* new_size = malloc(sizeof(size_t*));
+    Vector *new_vector = append_vect(vector, vector);
+    free_vect(vector, NULL);
 
-    int** new_vector = (int**)append_vect((void**)vector, size, (void**)vector, size, new_size);    
-    free_vect((void**)vector, size, NULL);
-
-    printf("Second vector (size %zu)\n", *new_size);
-    p = new_vector;
-    for (int i = 0; i < *new_size; i++) {
-        printf("%d = %d\n", i, **p);
-        *p++;
+    printf("Second vector (size %zu)\n", new_vector->size);
+    for (int i = 0; i < new_vector->size; i++) {
+        printf("%d = %d\n", i, *(int*)new_vector->data[i]);
     }
 
-    p = NULL;
+    free_vect(new_vector, NULL);
 
     return 0;
 }
