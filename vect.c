@@ -186,6 +186,7 @@ void *get_vect(Vector *vector, size_t index)
  *
  * @param vector The vector to search.
  * @param predicate The predicate function to apply to each element.
+ * @param target The target value to compare against.
  * @return A pointer to the first element that satisfies the predicate, or NULL
  * if no such element is found.
  */
