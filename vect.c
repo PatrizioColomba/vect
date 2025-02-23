@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 /**
  * @brief Initializes a vector with a given number of elements.
@@ -175,3 +176,32 @@ void *get_vect(Vector *vector, size_t index)
 
     return vector->data[index];
 }
+
+/**
+ * @brief Finds the first element in the vector that satisfies the predicate function.
+ *
+ * @param vector The vector to search.
+ * @param predicate The predicate function to apply to each element.
+ * @return A pointer to the first element that satisfies the predicate, or NULL if no such element is found.
+ */
+void *find_first_vect(Vector *vector, bool (*predicate)(void *, void*), void *target)
+{
+    if (vector == NULL) {
+        printf("parameter vector is null!\n");
+        return NULL;
+    }
+
+    if (predicate == NULL) {
+        printf("parameter predicate is null!\n");
+        return NULL;
+    }
+
+    for (size_t i = 0; i < vector->size; i++) {
+        if (predicate(vector->data[i], target)) {
+            return vector->data[i];
+        }
+    }
+
+    return NULL;
+}
+
