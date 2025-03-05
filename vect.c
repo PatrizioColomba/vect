@@ -23,10 +23,8 @@ Vector *init_vect(size_t n, ...)
     va_list args;
     va_start(args, n);
 
-    void **p = data;
     for (size_t i = 0; i < n; i++) {
-        *p = va_arg(args, void *);
-        p++;
+        data[i] = va_arg(args, void *);
     }
 
     va_end(args);

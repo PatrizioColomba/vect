@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "../vect.h"
 
-bool is_equal_to_target(size_t index, void *element, void *target)
+static bool is_equal_to_target(size_t index, void *element, void *target)
 {
     printf("checking element at index %zu against target\n", index);
     return *(int *)element == *(int *)target;
