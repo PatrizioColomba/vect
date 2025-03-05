@@ -6,7 +6,7 @@
 static bool is_equal_to_target(size_t index, void *element, void *target)
 {
     printf("checking element at index %zu against target\n", index);
-    return *(int *)element == *(int *)target;
+    return *((int *)element) == *((int *)target);
 }
 
 int main(int argc, char **argv)
