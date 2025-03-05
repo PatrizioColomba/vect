@@ -187,27 +187,27 @@ void *get_vect(Vector *vector, size_t index)
  * @param vector The vector to search.
  * @param predicate The predicate function to apply to each element.
  * @param target The target value to compare against.
- * @return A pointer to the first element that satisfies the predicate, or NULL
+ * @return The index of the first element that satisfies the predicate, or (size_t)-1
  * if no such element is found.
  */
-void *find_first_vect(Vector *vector, bool (*predicate)(void *, void *),
+size_t find_first_vect(Vector *vector, bool (*predicate)(size_t, void *, void *),
                       void *target)
 {
     if (vector == NULL) {
         printf("parameter vector is null!\n");
-        return NULL;
+        return (size_t)-1;
     }
 
     if (predicate == NULL) {
         printf("parameter predicate is null!\n");
-        return NULL;
+        return (size_t)-1;
     }
 
     for (size_t i = 0; i < vector->size; i++) {
-        if (predicate(vector->data[i], target)) {
-            return vector->data[i];
+        if (predicate(i, vector->data[i], target)) {
+            return i;
         }
     }
 
-    return NULL;
+    return (size_t)-1;
 }
