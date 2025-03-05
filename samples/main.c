@@ -3,8 +3,9 @@
 #include <stdbool.h>
 #include "../vect.h"
 
-bool is_equal_to_target(void *element, void *target)
+bool is_equal_to_target(size_t index, void *element, void *target)
 {
+    printf("checking element at index %zu against target\n", index);
     return *(int *)element == *(int *)target;
 }
 
@@ -47,11 +48,11 @@ int main(int argc, char **argv)
     printf("Enter the number to find: ");
     scanf("%d", &target);
 
-    int *found_element = (int *)find_first_vect(
-        expanded_vector, (bool (*)(void *, void *))is_equal_to_target,
+    size_t found_element_index = find_first_vect(
+        expanded_vector, (bool (*)(size_t, void *, void *))is_equal_to_target,
         (void *)&target);
-    if (found_element != NULL) {
-        printf("Found element: %d\n", *found_element);
+    if (found_element_index >= 0) {
+        printf("Found element at index %zu: %d\n", found_element_index, *(int *)expanded_vector->data[found_element_index]);
     } else {
         printf("Element not found\n");
     }

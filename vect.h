@@ -20,7 +20,7 @@ void free_vect(Vector *vector, const void (*free_item)(void *));
 Vector *append_vect(Vector *vector1, Vector *vector2);
 Vector *add_vect(Vector *vector, void *element);
 void *get_vect(Vector *vector, size_t index);
-void *find_first_vect(Vector *vector, bool (*predicate)(void *, void *),
+size_t find_first_vect(Vector *vector, bool (*predicate)(size_t, void *, void *),
                       void *target);
 
 #endif
