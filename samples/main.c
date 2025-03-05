@@ -52,7 +52,8 @@ int main(int argc, char **argv)
         expanded_vector, (bool (*)(size_t, void *, void *))is_equal_to_target,
         (void *)&target);
     if (found_element_index >= 0) {
-        printf("Found element at index %zu: %d\n", found_element_index, *(int *)expanded_vector->data[found_element_index]);
+        printf("Found element at index %zu: %d\n", found_element_index,
+               *(int *)expanded_vector->data[found_element_index]);
     } else {
         printf("Element not found\n");
     }
