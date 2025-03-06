@@ -22,5 +22,7 @@ Vector *add_vect(Vector *vector, void *element);
 void *get_vect(Vector *vector, size_t index);
 size_t find_first_vect(Vector *vector,
                        bool (*predicate)(size_t, void *, void *), void *target);
+Vector *remove_vect(Vector *vector, size_t index,
+                    const void (*free_item)(void *));
 
 #endif

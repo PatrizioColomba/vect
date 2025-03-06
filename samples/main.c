@@ -58,6 +58,20 @@ int main(int argc, char **argv)
         printf("Element not found\n");
     }
 
+    printf("\nTesting remove operation:\n");
+    size_t remove_index;
+    printf("Enter index to remove (0-%zu): ", expanded_vector->size - 1);
+    scanf("%zu", &remove_index);
+
+    Vector *reduced_vector = remove_vect(expanded_vector, remove_index, NULL);
+    if (reduced_vector != NULL) {
+        printf("Vector after removing element at index %zu:\n", remove_index);
+        PRINT_VECT_INT(reduced_vector);
+        expanded_vector = reduced_vector;
+    } else {
+        printf("Failed to remove element at index %zu\n", remove_index);
+    }
+
     free_vect(expanded_vector, NULL);
 
     return 0;
