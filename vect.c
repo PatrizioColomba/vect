@@ -209,3 +209,56 @@ size_t find_first_vect(Vector *vector,
 
     return (size_t)-1;
 }
+
+/**
+ * @brief Removes an element from a vector at the specified index.
+ *
+ * @param vector The vector to remove the element from.
+ * @param index The index of the element to remove.
+ * @param free_item A function pointer to free the removed item, can be NULL.
+ * @return A pointer to the new vector with the element removed, or NULL if an
+ * error occurred.
+ */
+Vector *remove_vect(Vector *vector, size_t index,
+                    const void (*free_item)(void *))
+{
+    if (vector == NULL) {
+        printf("parameter vector is null!\n");
+        return NULL;
+    }
+
+    if (index >= vector->size) {
+        printf("index out of bounds!\n");
+        return NULL;
+    }
+
+    size_t new_size = vector->size - 1;
+    Vector *result = malloc(sizeof(Vector));
+    if (result == NULL) {
+        printf("failed to allocate memory for result vector!\n");
+        return NULL;
+    }
+
+    result->data = malloc(new_size * sizeof(void *));
+    if (result->data == NULL) {
+        printf("failed to allocate memory for result data!\n");
+        free(result);
+        return NULL;
+    }
+    result->size = new_size;
+
+    for (size_t i = 0, j = 0; i < vector->size; i++) {
+        if (i == index) {
+            if (free_item != NULL && vector->data[i] != NULL) {
+                free_item(vector->data[i]);
+            }
+        } else {
+            result->data[j++] = vector->data[i];
+        }
+    }
+
+    free(vector->data);
+    free(vector);
+
+    return result;
+}
