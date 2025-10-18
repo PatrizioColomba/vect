@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     Vector *vector = init_vect(size, (void *)&n1, (void *)&n2);
 
     if (vector == NULL) {
-        printf("vector is null!\n");
+        DEBUG_LOG("vector is null!");
         return -1;
     }
 
@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     if (an_element != NULL) {
         printf("Element at index 4: %d\n", *an_element);
     } else {
-        printf("Failed to get element at index 4\n");
+        DEBUG_LOG("Failed to get element at index 4");
     }
 
     int target;
@@ -69,10 +69,11 @@ int main(int argc, char **argv)
         PRINT_VECT_INT(reduced_vector);
         expanded_vector = reduced_vector;
     } else {
-        printf("Failed to remove element at index %zu\n", remove_index);
+        DEBUG_LOG("Failed to remove element at index %zu\n", remove_index);
     }
 
     free_vect(expanded_vector, NULL);
 
     return 0;
 }
+

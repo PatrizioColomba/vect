@@ -4,6 +4,8 @@
 #ifndef __STRVECT_H__
 #define __STRVECT_H__
 
+#define DEBUG_LOG(fmt, ...) printf("DEBUG: %s:%d: " fmt "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+
 #define PRINT_VECT_INT(vector)                                                 \
     printf("vector (size %zu)\n", vector->size);                               \
     for (size_t i = 0; i < vector->size; i++) {                                \

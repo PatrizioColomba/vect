@@ -16,7 +16,7 @@ Vector *init_vect(size_t n, ...)
 {
     void **data = malloc(n * sizeof(void *));
     if (data == NULL) {
-        printf("failed to allocate memory for data!\n");
+        DEBUG_LOG("failed to allocate memory for data!");
         return NULL;
     }
 
@@ -31,7 +31,7 @@ Vector *init_vect(size_t n, ...)
 
     Vector *vect = malloc(sizeof(Vector));
     if (vect == NULL) {
-        printf("failed to allocate memory for vector!\n");
+        DEBUG_LOG("failed to allocate memory for vector!\n");
         free(data);
         return NULL;
     }
@@ -51,7 +51,7 @@ Vector *init_vect(size_t n, ...)
 void free_vect(Vector *vector, const void (*free_item)(void *))
 {
     if (vector == NULL) {
-        printf("parameter vector is null!\n");
+        DEBUG_LOG("parameter vector is null!");
         return;
     }
 
@@ -77,12 +77,12 @@ void free_vect(Vector *vector, const void (*free_item)(void *))
 Vector *append_vect(Vector *vector1, Vector *vector2)
 {
     if (vector1 == NULL) {
-        printf("parameter vector1 is null!\n");
+        DEBUG_LOG("parameter vector1 is null!");
         return NULL;
     }
 
     if (vector2 == NULL) {
-        printf("parameter vector2 is null!\n");
+        DEBUG_LOG("parameter vector2 is null!");
         return NULL;
     }
 
@@ -90,13 +90,13 @@ Vector *append_vect(Vector *vector1, Vector *vector2)
 
     Vector *result_vector = malloc(sizeof(Vector));
     if (result_vector == NULL) {
-        printf("failed to allocate memory for result_vector!\n");
+        DEBUG_LOG("failed to allocate memory for result_vector!");
         return NULL;
     }
 
     result_vector->data = malloc(new_size * sizeof(void *));
     if (result_vector->data == NULL) {
-        printf("failed to allocate memory for result_vector data!\n");
+        DEBUG_LOG("failed to allocate memory for result_vector data!\n");
         free(result_vector);
         return NULL;
     }
@@ -125,7 +125,7 @@ Vector *append_vect(Vector *vector1, Vector *vector2)
 Vector *add_vect(Vector *vector, void *element)
 {
     if (vector == NULL) {
-        printf("parameter vector is null!\n");
+        DEBUG_LOG("parameter vector is null!");
         return NULL;
     }
 
@@ -133,7 +133,7 @@ Vector *add_vect(Vector *vector, void *element)
 
     Vector *result_vector = malloc(sizeof(Vector));
     if (result_vector == NULL) {
-        printf("failed to allocate memory for result_vector!\n");
+        DEBUG_LOG("failed to allocate memory for result_vector!");
         return NULL;
     }
 
@@ -192,12 +192,12 @@ size_t find_first_vect(Vector *vector,
                        bool (*predicate)(size_t, void *, void *), void *target)
 {
     if (vector == NULL) {
-        printf("parameter vector is null!\n");
+        DEBUG_LOG("parameter vector is null!");
         return (size_t)-1;
     }
 
     if (predicate == NULL) {
-        printf("parameter predicate is null!\n");
+        DEBUG_LOG("parameter predicate is null!");
         return (size_t)-1;
     }
 
@@ -223,12 +223,12 @@ Vector *remove_vect(Vector *vector, size_t index,
                     const void (*free_item)(void *))
 {
     if (vector == NULL) {
-        printf("parameter vector is null!\n");
+        DEBUG_LOG("parameter vector is null!");
         return NULL;
     }
 
     if (index >= vector->size) {
-        printf("index out of bounds!\n");
+        DEBUG_LOG("index out of bounds!");
         return NULL;
     }
 
