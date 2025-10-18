@@ -26,3 +26,4 @@ Vector *remove_vect(Vector *vector, size_t index,
                     const void (*free_item)(void *));
 
 #endif
+

@@ -262,3 +262,4 @@ Vector *remove_vect(Vector *vector, size_t index,
 
     return result;
 }
+
